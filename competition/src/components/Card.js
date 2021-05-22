@@ -127,11 +127,11 @@ export default function Card() {
       {renderCardHeader()}
       {renderInputComponent()}
       <div style={{ paddingTop: "2.5%", paddingBottom: "2.5%" }}>
-        {(searchedTodoTask || todoList || []).map((item) => (
+        {(todoList || []).map((item) => (
           <ListItem item={item} key={uuid()} />
         ))}
         <TodoTextComponent text="Completed" />
-        {(searchedCompletedTask || completedTask || []).map((item) => (
+        {(completedTask || []).map((item) => (
           <ListItem item={item} key={uuid()} />
         ))}
       </div>
