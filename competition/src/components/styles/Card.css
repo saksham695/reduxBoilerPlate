@@ -1,0 +1,25 @@
+.card-dimension {
+  width: 50%;
+  background-color: white;
+  height: 50%;
+  border-width: 2;
+  padding: 2%;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.input-style {
+  border-width: 0;
+  width: 90%;
+  outline-width: 0;
+}
+
+.input-container {
+}
+
+*::-webkit-input-placeholder {
+  color: rgb(165, 176, 246);
+}
