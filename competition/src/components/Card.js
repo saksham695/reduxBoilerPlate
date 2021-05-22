@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { uuid } from "uuidv4";
 
 import IconComponent from "./IconComponent";
 import InputComponent from "./InputComponent";
@@ -7,26 +8,28 @@ import { ACTIONS } from "../store/action";
 import { useStateValue } from "../store/StateProvider";
 
 import "./styles/Card.css";
+import ListItem from "./ListItem";
 
 export default function Card() {
   const [todoItem, onChangeTodo] = useState("");
   const [hashTag, setHashTag] = useState("");
-  const [{ todoList, hashtagStack }, dispatch] = useStateValue();
-
-  console.log("todoList", todoList);
-  console.log("hashtagStack", hashtagStack);
-
+  const [
+    { todoList, completedTask, searchedTodoTask, searchedCompletedTask },
+    dispatch,
+  ] = useStateValue();
   const onTodoItemChange = (e) => {
     onChangeTodo(e.target.value);
   };
 
+  console.log("searchedTodoTask", searchedTodoTask);
+  console.log("searchedCompletedTask", searchedCompletedTask);
   const addTodoList = (e) => {
     e.preventDefault();
     const payload = {
       todo: todoItem,
       completed: false,
+      id: uuid(),
     };
-
     dispatch({
       type: ACTIONS.ADD_TO_LIST,
       payload,
@@ -38,7 +41,7 @@ export default function Card() {
     e.preventDefault();
     dispatch({
       type: ACTIONS.ADD_HASHTAG,
-      payload: hashTag,
+      payload: { tag: hashTag, id: uuid() },
     });
     setHashTag("");
   };
@@ -123,6 +126,15 @@ export default function Card() {
     <div className="card-dimension" style={{ borderRadius: 10 }}>
       {renderCardHeader()}
       {renderInputComponent()}
+      <div style={{ paddingTop: "2.5%", paddingBottom: "2.5%" }}>
+        {(searchedTodoTask || todoList || []).map((item) => (
+          <ListItem item={item} key={uuid()} />
+        ))}
+        <TodoTextComponent text="Completed" />
+        {(searchedCompletedTask || completedTask || []).map((item) => (
+          <ListItem item={item} key={uuid()} />
+        ))}
+      </div>
     </div>
   );
 }

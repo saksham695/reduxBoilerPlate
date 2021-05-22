@@ -1,8 +1,16 @@
 import React from "react";
 
-export default function IconComponent({ customStyle, iconName }) {
+export default function IconComponent({
+  customStyle,
+  iconName,
+  onIconClicked = () => {},
+}) {
   return (
-    <i className="material-icons" style={customStyle}>
+    <i
+      className="material-icons"
+      style={customStyle}
+      onClick={() => onIconClicked()}
+    >
       {iconName}
     </i>
   );
