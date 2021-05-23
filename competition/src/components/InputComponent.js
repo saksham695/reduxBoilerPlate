@@ -1,15 +1,25 @@
 import React from "react";
+import IconComponent from "./IconComponent";
 
 export default function InputComponent({
   onHandleChange = () => {},
   onHandleSubmit = () => {},
+  onIconClicked = () => {},
+  icon,
   placeholder = "",
   type = "input",
   value = "",
 }) {
   return (
     <div>
-      <form onSubmit={(e) => onHandleSubmit(e)}>
+      <form
+        onSubmit={(e) => onHandleSubmit(e)}
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "flex-end",
+        }}
+      >
         <input
           className="input-style"
           onChange={(e) => onHandleChange(e)}
@@ -18,6 +28,7 @@ export default function InputComponent({
           type={type}
           value={value}
         />
+        <IconComponent iconName={icon} onIconClicked={onIconClicked} />
       </form>
     </div>
   );

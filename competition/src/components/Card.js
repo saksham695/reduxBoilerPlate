@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { uuid } from "uuidv4";
 
 import IconComponent from "./IconComponent";
@@ -24,6 +24,24 @@ export default function Card() {
     },
     dispatch,
   ] = useStateValue();
+
+  useEffect(() => {
+    const storedData = sessionStorage.getItem("data");
+    dispatch({
+      type: ACTIONS.GET_SESSION_DATA,
+      payload: JSON.parse(storedData),
+    });
+  }, []);
+
+  useEffect(() => {
+    const data = {
+      completedTask: [...completedTask],
+      hashtagStack: [...hashtagStack],
+      todoList: [...todoList],
+    };
+    sessionStorage.setItem("data", JSON.stringify(data));
+  }, [completedTask, todoList]);
+
   const onTodoItemChange = (e) => {
     onChangeTodo(e.target.value);
   };
@@ -42,6 +60,10 @@ export default function Card() {
     onChangeTodo("");
   };
 
+  const removeCurrentTask = () => {
+    onChangeTodo("");
+  };
+
   const onAddHashtagToStack = (e) => {
     e.preventDefault();
     dispatch({
@@ -55,6 +77,11 @@ export default function Card() {
     setHashTag(e.target.value);
   };
 
+  const onRemoveHashtags = () => {
+    dispatch({
+      type: ACTIONS.REMOVE_HASHTAGS,
+    });
+  };
   const resetState = () => {
     dispatch({
       type: ACTIONS.RESET_TO_DO_LIST,
@@ -64,7 +91,10 @@ export default function Card() {
   const renderCardHeader = () => {
     return (
       <div className="card-header">
-        <TodoTextComponent text="To do list" />
+        <TodoTextComponent
+          text="To do list"
+          customStyle={{ color: "rgb(129,129,129)", fontSize: 22 }}
+        />
         <div style={styles.resetButtonContainerStyle} onClick={resetState}>
           <IconComponent
             customStyle={{ color: "rgb(0,204,123)" }}
@@ -87,6 +117,8 @@ export default function Card() {
             key,
             onHandleChange,
             onHandleSubmit,
+            onIconClicked,
+            icon,
             placeholder,
             type,
             value,
@@ -97,8 +129,10 @@ export default function Card() {
                   onHandleChange={onHandleChange}
                   onHandleSubmit={onHandleSubmit}
                   placeholder={placeholder}
+                  icon={icon}
                   type={type}
                   value={value}
+                  onIconClicked={onIconClicked}
                 />
               </div>
             );
@@ -116,6 +150,8 @@ export default function Card() {
       placeholder: "+  Add a task",
       type: "input",
       value: todoItem,
+      icon: "close",
+      onIconClicked: removeCurrentTask,
     },
     {
       key: "il2",
@@ -124,6 +160,8 @@ export default function Card() {
       placeholder: "Search with hashtags",
       type: "input",
       value: hashTag,
+      icon: "refresh",
+      onIconClicked: onRemoveHashtags,
     },
   ];
 

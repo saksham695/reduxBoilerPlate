@@ -86,6 +86,20 @@ export const reducer = (state, action) => {
       };
     }
 
+    case ACTIONS.GET_SESSION_DATA: {
+      return {
+        ...state,
+        hashtagStack: [...payload.hashtagStack],
+        completedTask: [...payload.completedTask],
+        todoList: [...payload.todoList],
+      };
+    }
+    case ACTIONS.REMOVE_HASHTAGS: {
+      return {
+        ...state,
+        hashtagStack: [],
+      };
+    }
     default:
       return {
         ...state,

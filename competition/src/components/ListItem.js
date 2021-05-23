@@ -50,9 +50,15 @@ export default function ListItem({ item }) {
       onClick={onIconClicked}
     >
       {!item.checked ? (
-        <IconComponent iconName="circle" customStyle={{ color: "white" }} />
+        <IconComponent
+          iconName="circle"
+          customStyle={{ color: "rgba(239,85,84,0.4)" }}
+        />
       ) : (
-        <IconComponent iconName="circle" customStyle={{ color: "green" }} />
+        <IconComponent
+          iconName="circle"
+          customStyle={{ color: "rgba(0,204,123,0.6)" }}
+        />
       )}
       <div
         style={{
@@ -64,7 +70,6 @@ export default function ListItem({ item }) {
         }}
       >
         {modifiedText.map((text) => {
-          console.log("text", text);
           return !text.includes("#") ? (
             <TodoTextComponent
               text={text}
