@@ -152,7 +152,7 @@ export default function Card() {
             <ListItem item={item} key={uuid()} />
           )
         )}
-        <TodoTextComponent text="Completed" />
+        <TodoTextComponent text="Completed" customStyle={{ marginTop: "1%" }} />
         {((hashtagStack || []).length
           ? searchedCompletedTask
           : completedTask || []
