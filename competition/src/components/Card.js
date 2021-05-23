@@ -38,6 +38,8 @@ export default function Card() {
       completedTask: [...completedTask],
       hashtagStack: [...hashtagStack],
       todoList: [...todoList],
+      searchedCompletedTask: [...searchedCompletedTask],
+      searchedTodoTask: [...searchedCompletedTask],
     };
     sessionStorage.setItem("data", JSON.stringify(data));
   }, [completedTask, todoList]);

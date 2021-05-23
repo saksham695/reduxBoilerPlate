@@ -92,6 +92,8 @@ export const reducer = (state, action) => {
         hashtagStack: [...payload.hashtagStack],
         completedTask: [...payload.completedTask],
         todoList: [...payload.todoList],
+        searchedCompletedTask: [...payload.searchedCompletedTask],
+        searchedTodoTask: [...payload.searchedTodoTask],
       };
     }
     case ACTIONS.REMOVE_HASHTAGS: {

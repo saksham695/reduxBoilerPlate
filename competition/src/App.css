@@ -1,8 +1,14 @@
 .root-container {
   background-color: rgb(133, 101, 220);
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+}
+
+@media only screen and (max-device-width: 455px) {
+  .root-container {
+    min-height: 100vh;
+  }
 }

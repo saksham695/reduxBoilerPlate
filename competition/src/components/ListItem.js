@@ -37,15 +37,18 @@ export default function ListItem({ item }) {
     <div
       style={{
         backgroundColor: "rgb(249,246,254)",
-        borderRadius: 5,
+        borderRadius: 8,
         padding: 5,
         minHeight: 25,
-        paddingRight: 10,
-        paddingLeft: 10,
-        marginTop: "2%",
+        // paddingRight: 10,
+        // paddingLeft: 10,
+        padding: 10,
+        marginTop: "2.5%",
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
+        boxShadow:
+          "1px 1px 2px 3px rgba(232,231,231,0.8)" /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */,
       }}
       onClick={onIconClicked}
     >
