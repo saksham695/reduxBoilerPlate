@@ -1,4 +1,7 @@
 .card-dimension {
+  position: relative;
+  top: 50px;
+  bottom: 0;
   width: 50%;
   background-color: white;
   min-height: 70vh;
