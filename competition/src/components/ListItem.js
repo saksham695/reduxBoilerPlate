@@ -5,7 +5,7 @@ import IconComponent from "./IconComponent";
 import TodoTextComponent from "./TodoTextComponent";
 
 export default function ListItem({ item }) {
-  const [{}, dispatch] = useStateValue();
+  const [{ hashtagStack }, dispatch] = useStateValue();
 
   const onIconClicked = () => {
     const checked = item.checked;
@@ -14,7 +14,16 @@ export default function ListItem({ item }) {
       checked: !checked,
       id: item.id,
     };
-    console.log("onIconClicked", payload, item);
+
+    if (hashtagStack.length) {
+      dispatch({
+        type: checked
+          ? ACTIONS.SEARCHED_TODO_NOT_COMPLETED
+          : ACTIONS.SEARCHED_TODO_COMPLETED,
+        payload,
+      });
+    }
+
     dispatch({
       type: checked ? ACTIONS.NOT_COMPLETED : ACTIONS.ITEM_COMPLETED,
       payload,

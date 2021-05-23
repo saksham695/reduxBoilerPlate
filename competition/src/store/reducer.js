@@ -24,6 +24,7 @@ const getSearchedData = (list, updateHashTagList) => {
 
 export const reducer = (state, action) => {
   const { payload, type } = action;
+  console.log(type);
   switch (type) {
     case ACTIONS.ADD_TO_LIST:
       return {
@@ -54,6 +55,45 @@ export const reducer = (state, action) => {
         completedTask: state.completedTask.filter(
           (item) => item.id !== payload.id
         ),
+      };
+
+    case ACTIONS.SEARCHED_TODO_COMPLETED: {
+      const updatedSearchedTodoTask = state.searchedTodoTask.filter(
+        (item) => item.id !== payload.id
+      );
+      const searchedCompletedTask = [...state.searchedCompletedTask, payload];
+      console.log("updatedSearchedTodoTask", updatedSearchedTodoTask);
+      console.log("searchedCompletedTask", searchedCompletedTask);
+      return {
+        ...state,
+        searchedTodoTask: updatedSearchedTodoTask,
+        searchedCompletedTask: searchedCompletedTask,
+      };
+    }
+
+    case ACTIONS.SEARCHED_TODO_NOT_COMPLETED:
+      const updatedSearchedTodoTask = [...state.searchedTodoTask, payload];
+
+      const searchedCompletedTask = state.searchedCompletedTask.filter(
+        (item) => {
+          console.log("should include", item.id !== payload.id);
+          return item.id !== payload.id;
+        }
+      );
+
+      console.log(
+        "updatedSearchedTodoTask SEARCHED_TODO_NOT_COMPLETED",
+        updatedSearchedTodoTask
+      );
+      console.log(
+        "searchedCompletedTask SEARCHED_TODO_NOT_COMPLETED",
+        searchedCompletedTask
+      );
+
+      return {
+        ...state,
+        searchedTodoTask: updatedSearchedTodoTask,
+        searchedCompletedTask: searchedCompletedTask,
       };
 
     case ACTIONS.ADD_HASHTAG: {

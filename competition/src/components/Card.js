@@ -14,7 +14,13 @@ export default function Card() {
   const [todoItem, onChangeTodo] = useState("");
   const [hashTag, setHashTag] = useState("");
   const [
-    { todoList, completedTask, searchedTodoTask, searchedCompletedTask },
+    {
+      todoList,
+      completedTask,
+      searchedTodoTask,
+      hashtagStack,
+      searchedCompletedTask,
+    },
     dispatch,
   ] = useStateValue();
   const onTodoItemChange = (e) => {
@@ -127,11 +133,16 @@ export default function Card() {
       {renderCardHeader()}
       {renderInputComponent()}
       <div style={{ paddingTop: "2.5%", paddingBottom: "2.5%" }}>
-        {(todoList || []).map((item) => (
-          <ListItem item={item} key={uuid()} />
-        ))}
+        {(hashtagStack.length ? searchedTodoTask : todoList || []).map(
+          (item) => (
+            <ListItem item={item} key={uuid()} />
+          )
+        )}
         <TodoTextComponent text="Completed" />
-        {(completedTask || []).map((item) => (
+        {(hashtagStack.length
+          ? searchedCompletedTask
+          : completedTask || []
+        ).map((item) => (
           <ListItem item={item} key={uuid()} />
         ))}
       </div>
