@@ -39,7 +39,7 @@ export default function Card() {
       hashtagStack: [...hashtagStack],
       todoList: [...todoList],
       searchedCompletedTask: [...searchedCompletedTask],
-      searchedTodoTask: [...searchedCompletedTask],
+      searchedTodoTask: [...searchedTodoTask],
     };
     sessionStorage.setItem("data", JSON.stringify(data));
   }, [completedTask, todoList]);
@@ -55,10 +55,11 @@ export default function Card() {
       id: new Date().getTime(),
       todo: todoItem,
     };
-    dispatch({
-      payload,
-      type: ACTIONS.ADD_TO_LIST,
-    });
+    !!todoItem.length &&
+      dispatch({
+        payload,
+        type: ACTIONS.ADD_TO_LIST,
+      });
     onChangeTodo("");
   };
 
@@ -68,10 +69,11 @@ export default function Card() {
 
   const onAddHashtagToStack = (e) => {
     e.preventDefault();
-    dispatch({
-      type: ACTIONS.ADD_HASHTAG,
-      payload: { tag: hashTag, id: new Date().getTime() },
-    });
+    !!hashTag.length &&
+      dispatch({
+        type: ACTIONS.ADD_HASHTAG,
+        payload: { tag: hashTag, id: new Date().getTime() },
+      });
     setHashTag("");
   };
 
