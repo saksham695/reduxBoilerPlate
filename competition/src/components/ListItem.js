@@ -1,6 +1,8 @@
 import React from "react";
+import { uuid } from "uuidv4";
 import { ACTIONS } from "../store/action";
 import { useStateValue } from "../store/StateProvider";
+import HashTagTextComponent from "./HashTagTextComponent";
 import IconComponent from "./IconComponent";
 import TodoTextComponent from "./TodoTextComponent";
 
@@ -29,6 +31,8 @@ export default function ListItem({ item }) {
       payload,
     });
   };
+  const modifiedText = item.todo.split(" ");
+
   return (
     <div
       style={{
@@ -43,36 +47,35 @@ export default function ListItem({ item }) {
         flexDirection: "row",
         alignItems: "center",
       }}
+      onClick={onIconClicked}
     >
       {!item.checked ? (
-        <IconComponent
-          iconName="circle"
-          customStyle={{ color: "white" }}
-          onIconClicked={onIconClicked}
-        />
+        <IconComponent iconName="circle" customStyle={{ color: "white" }} />
       ) : (
-        <IconComponent
-          iconName="circle"
-          customStyle={{ color: "green" }}
-          onIconClicked={onIconClicked}
-        />
+        <IconComponent iconName="circle" customStyle={{ color: "green" }} />
       )}
-      <div style={{ paddingLeft: 15 }}>
-        <TodoTextComponent text={item.todo} />
+      <div
+        style={{
+          paddingLeft: 15,
+          display: "flex",
+          flexDirection: "row",
+          flexWrap: "wrap",
+          alignItems: "center",
+        }}
+      >
+        {modifiedText.map((text) => {
+          console.log("text", text);
+          return !text.includes("#") ? (
+            <TodoTextComponent
+              text={text}
+              customStyle={{ color: "rgb(129,129,129)", marginRight: 2 }}
+              key={uuid()}
+            />
+          ) : (
+            <HashTagTextComponent text={text} key={uuid()} />
+          );
+        })}
       </div>
     </div>
   );
 }
-
-const CheckBoxComponent = () => {
-  return (
-    <div
-      style={{
-        height: 14,
-        width: 14,
-        borderRadius: 7,
-        backgroundColor: "green",
-      }}
-    />
-  );
-};

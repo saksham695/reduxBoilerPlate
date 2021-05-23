@@ -3,23 +3,24 @@ import { uuid } from "uuidv4";
 
 import IconComponent from "./IconComponent";
 import InputComponent from "./InputComponent";
+import ListItem from "./ListItem";
 import TodoTextComponent from "./TodoTextComponent";
 import { ACTIONS } from "../store/action";
 import { useStateValue } from "../store/StateProvider";
 
 import "./styles/Card.css";
-import ListItem from "./ListItem";
+import HashTagTextComponent from "./HashTagTextComponent";
 
 export default function Card() {
   const [todoItem, onChangeTodo] = useState("");
   const [hashTag, setHashTag] = useState("");
   const [
     {
-      todoList,
       completedTask,
-      searchedTodoTask,
       hashtagStack,
       searchedCompletedTask,
+      searchedTodoTask,
+      todoList,
     },
     dispatch,
   ] = useStateValue();
@@ -27,18 +28,16 @@ export default function Card() {
     onChangeTodo(e.target.value);
   };
 
-  console.log("searchedTodoTask", searchedTodoTask);
-  console.log("searchedCompletedTask", searchedCompletedTask);
   const addTodoList = (e) => {
     e.preventDefault();
     const payload = {
-      todo: todoItem,
       completed: false,
-      id: uuid(),
+      id: new Date().getTime(),
+      todo: todoItem,
     };
     dispatch({
-      type: ACTIONS.ADD_TO_LIST,
       payload,
+      type: ACTIONS.ADD_TO_LIST,
     });
     onChangeTodo("");
   };
@@ -47,7 +46,7 @@ export default function Card() {
     e.preventDefault();
     dispatch({
       type: ACTIONS.ADD_HASHTAG,
-      payload: { tag: hashTag, id: uuid() },
+      payload: { tag: hashTag, id: new Date().getTime() },
     });
     setHashTag("");
   };
@@ -68,12 +67,12 @@ export default function Card() {
         <TodoTextComponent text="To do list" />
         <div style={styles.resetButtonContainerStyle} onClick={resetState}>
           <IconComponent
-            iconName="refresh"
             customStyle={{ color: "rgb(0,204,123)" }}
+            iconName="refresh"
           />
           <TodoTextComponent
-            text="Reset All Tasks"
             customStyle={styles.resetButtonTextStyle}
+            text="Reset All Tasks"
           />
         </div>
       </div>
@@ -132,14 +131,29 @@ export default function Card() {
     <div className="card-dimension" style={{ borderRadius: 10 }}>
       {renderCardHeader()}
       {renderInputComponent()}
+      {!!hashtagStack.length && (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            marginTop: "1%",
+            justifyContent: "normal",
+          }}
+        >
+          {hashtagStack.map((item) => {
+            return <HashTagTextComponent text={item.tag} key={uuid()} />;
+          })}
+        </div>
+      )}
       <div style={{ paddingTop: "2.5%", paddingBottom: "2.5%" }}>
-        {(hashtagStack.length ? searchedTodoTask : todoList || []).map(
+        {((hashtagStack || []).length ? searchedTodoTask : todoList || []).map(
           (item) => (
             <ListItem item={item} key={uuid()} />
           )
         )}
         <TodoTextComponent text="Completed" />
-        {(hashtagStack.length
+        {((hashtagStack || []).length
           ? searchedCompletedTask
           : completedTask || []
         ).map((item) => (
