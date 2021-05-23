@@ -43,7 +43,7 @@ export default function Card() {
       searchedTodoTask: [...searchedTodoTask],
     };
     sessionStorage.setItem("data", JSON.stringify(data));
-  }, [completedTask, todoList]);
+  }, [completedTask, todoList, searchedCompletedTask, searchedTodoTask]);
 
   const onTodoItemChange = (e) => {
     onChangeTodo(e.target.value);
