@@ -27,10 +27,11 @@ export default function Card() {
 
   useEffect(() => {
     const storedData = sessionStorage.getItem("data");
-    dispatch({
-      type: ACTIONS.GET_SESSION_DATA,
-      payload: JSON.parse(storedData),
-    });
+    !!storedData &&
+      dispatch({
+        type: ACTIONS.GET_SESSION_DATA,
+        payload: JSON.parse(storedData),
+      });
   }, []);
 
   useEffect(() => {
@@ -169,6 +170,7 @@ export default function Card() {
     },
   ];
 
+  console.log("render");
   return (
     <div className="card-dimension" style={{ borderRadius: 10 }}>
       {renderCardHeader()}

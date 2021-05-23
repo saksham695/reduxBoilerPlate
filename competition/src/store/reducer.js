@@ -89,11 +89,11 @@ export const reducer = (state, action) => {
     case ACTIONS.GET_SESSION_DATA: {
       return {
         ...state,
-        hashtagStack: [...payload.hashtagStack],
         completedTask: [...payload.completedTask],
         todoList: [...payload.todoList],
         searchedCompletedTask: [...payload.searchedCompletedTask],
         searchedTodoTask: [...payload.searchedTodoTask],
+        hashtagStack: [...(payload.hashtagStack || [])],
       };
     }
     case ACTIONS.REMOVE_HASHTAGS: {
