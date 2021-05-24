@@ -172,7 +172,6 @@ export default function Card() {
     },
   ];
 
-  console.log("render");
   return (
     <div className="card-dimension" style={{ borderRadius: 10 }}>
       {renderCardHeader()}
