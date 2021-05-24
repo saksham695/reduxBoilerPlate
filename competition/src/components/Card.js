@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { uuid } from "uuidv4";
 
+import HashTagTextComponent from "./HashTagTextComponent";
 import IconComponent from "./IconComponent";
 import InputComponent from "./InputComponent";
 import ListItem from "./ListItem";
@@ -9,7 +10,6 @@ import { ACTIONS } from "../store/action";
 import { useStateValue } from "../store/StateProvider";
 
 import "./styles/Card.css";
-import HashTagTextComponent from "./HashTagTextComponent";
 
 export default function Card() {
   const [todoItem, onChangeTodo] = useState("");
@@ -38,9 +38,9 @@ export default function Card() {
     const data = {
       completedTask: [...completedTask],
       hashtagStack: [...hashtagStack],
-      todoList: [...todoList],
       searchedCompletedTask: [...searchedCompletedTask],
       searchedTodoTask: [...searchedTodoTask],
+      todoList: [...todoList],
     };
     sessionStorage.setItem("data", JSON.stringify(data));
   }, [completedTask, todoList, searchedCompletedTask, searchedTodoTask]);
@@ -49,6 +49,7 @@ export default function Card() {
     onChangeTodo(e.target.value);
   };
 
+  // method to add todo to list
   const addTodoList = (e) => {
     e.preventDefault();
     const payload = {
@@ -68,6 +69,7 @@ export default function Card() {
     onChangeTodo("");
   };
 
+  // method to add hash tag in search stack
   const onAddHashtagToStack = (e) => {
     e.preventDefault();
     !!hashTag.length &&
@@ -98,11 +100,11 @@ export default function Card() {
       <div className="card-header">
         <TodoTextComponent
           text="To do list"
-          customStyle={{ color: "rgb(129,129,129)", fontSize: 22 }}
+          customStyle={styles.todoTextStyle}
         />
         <div style={styles.resetButtonContainerStyle} onClick={resetState}>
           <IconComponent
-            customStyle={{ color: "rgb(0,204,123)" }}
+            customStyle={styles.refreshIconStyle}
             iconName="refresh"
           />
           <TodoTextComponent
@@ -116,7 +118,7 @@ export default function Card() {
 
   const renderInputComponent = () => {
     return (
-      <div>
+      <>
         {INPUT_DATA.map(
           ({
             key,
@@ -143,30 +145,30 @@ export default function Card() {
             );
           }
         )}
-      </div>
+      </>
     );
   };
 
   const INPUT_DATA = [
     {
+      icon: "close",
       key: "il1",
       onHandleChange: onTodoItemChange,
       onHandleSubmit: addTodoList,
+      onIconClicked: removeCurrentTask,
       placeholder: "+  Add a task",
       type: "input",
       value: todoItem,
-      icon: "close",
-      onIconClicked: removeCurrentTask,
     },
     {
+      icon: "refresh",
       key: "il2",
       onHandleChange: onHashtagChange,
       onHandleSubmit: onAddHashtagToStack,
+      onIconClicked: onRemoveHashtags,
       placeholder: "Search with hashtags",
       type: "input",
       value: hashTag,
-      icon: "refresh",
-      onIconClicked: onRemoveHashtags,
     },
   ];
 
@@ -176,27 +178,22 @@ export default function Card() {
       {renderCardHeader()}
       {renderInputComponent()}
       {!!hashtagStack.length && (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            flexWrap: "wrap",
-            marginTop: "1%",
-            justifyContent: "normal",
-          }}
-        >
+        <div className="hashtag-container" style={styles.hashTagContainer}>
           {hashtagStack.map((item) => {
             return <HashTagTextComponent text={item.tag} key={uuid()} />;
           })}
         </div>
       )}
-      <div style={{ paddingTop: "2.5%", paddingBottom: "2.5%" }}>
+      <div className="list-item-container">
         {((hashtagStack || []).length ? searchedTodoTask : todoList || []).map(
           (item) => (
             <ListItem item={item} key={uuid()} />
           )
         )}
-        <TodoTextComponent text="Completed" customStyle={{ marginTop: "1%" }} />
+        <TodoTextComponent
+          text="Completed"
+          customStyle={styles.completedTextStyle}
+        />
         {((hashtagStack || []).length
           ? searchedCompletedTask
           : completedTask || []
@@ -222,5 +219,26 @@ const styles = {
   resetButtonTextStyle: {
     color: "rgb(0,204,123)",
     marginLeft: 10,
+  },
+
+  refreshIconStyle: {
+    color: "rgb(0,204,123)",
+  },
+
+  todoTextStyle: {
+    color: "rgb(129,129,129)",
+    fontSize: 22,
+  },
+
+  completedTextStyle: {
+    marginTop: "2%",
+  },
+
+  hashTagContainer: {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "normal",
+    marginTop: "1%",
   },
 };

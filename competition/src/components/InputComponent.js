@@ -1,4 +1,5 @@
 import React from "react";
+
 import IconComponent from "./IconComponent";
 
 export default function InputComponent({
@@ -14,11 +15,7 @@ export default function InputComponent({
     <div>
       <form
         onSubmit={(e) => onHandleSubmit(e)}
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "flex-end",
-        }}
+        style={styles.formContainerStyle}
       >
         <input
           className="input-style"
@@ -42,5 +39,10 @@ const styles = {
     padding: 8,
     paddingBottom: 12,
     paddingTop: 12,
+  },
+  formContainerStyle: {
+    alignItems: "flex-end",
+    display: "flex",
+    flexDirection: "row",
   },
 };

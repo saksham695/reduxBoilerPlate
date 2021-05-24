@@ -1,4 +1,5 @@
 import React from "react";
+
 import TodoTextComponent from "./TodoTextComponent";
 
 export default function HashTagTextComponent({ text }) {

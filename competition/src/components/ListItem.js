@@ -1,10 +1,11 @@
 import React from "react";
 import { uuid } from "uuidv4";
-import { ACTIONS } from "../store/action";
-import { useStateValue } from "../store/StateProvider";
+
 import HashTagTextComponent from "./HashTagTextComponent";
 import IconComponent from "./IconComponent";
 import TodoTextComponent from "./TodoTextComponent";
+import { ACTIONS } from "../store/action";
+import { useStateValue } from "../store/StateProvider";
 
 export default function ListItem({ item }) {
   const [{ hashtagStack }, dispatch] = useStateValue();
@@ -34,49 +35,24 @@ export default function ListItem({ item }) {
   const modifiedText = item.todo.split(" ");
 
   return (
-    <div
-      style={{
-        backgroundColor: "rgb(249,246,254)",
-        borderRadius: 8,
-        padding: 5,
-        minHeight: 25,
-        // paddingRight: 10,
-        // paddingLeft: 10,
-        padding: 10,
-        marginTop: "2.5%",
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        boxShadow:
-          "1px 1px 2px 3px rgba(232,231,231,0.8)" /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */,
-      }}
-      onClick={onIconClicked}
-    >
+    <div style={styles.listItemContainer} onClick={onIconClicked}>
       {!item.checked ? (
         <IconComponent
           iconName="circle"
-          customStyle={{ color: "rgba(239,85,84,0.4)" }}
+          customStyle={styles.incompleteIconStyle}
         />
       ) : (
         <IconComponent
           iconName="circle"
-          customStyle={{ color: "rgba(0,204,123,0.6)" }}
+          customStyle={styles.completeIconStyle}
         />
       )}
-      <div
-        style={{
-          paddingLeft: 15,
-          display: "flex",
-          flexDirection: "row",
-          flexWrap: "wrap",
-          alignItems: "center",
-        }}
-      >
+      <div style={styles.itemTextContainer}>
         {modifiedText.map((text) => {
           return !text.includes("#") ? (
             <TodoTextComponent
               text={text}
-              customStyle={{ color: "rgb(129,129,129)", marginRight: 2 }}
+              customStyle={styles.plainTextStyle}
               key={uuid()}
             />
           ) : (
@@ -87,3 +63,35 @@ export default function ListItem({ item }) {
     </div>
   );
 }
+
+const styles = {
+  listItemContainer: {
+    alignItems: "center",
+    backgroundColor: "rgb(249,246,254)",
+    borderRadius: 8,
+    boxShadow:
+      "1px 1px 2px 3px rgba(232,231,231,0.8)" /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */,
+    display: "flex",
+    flexDirection: "row",
+    marginTop: "2.5%",
+    minHeight: 25,
+    padding: 10,
+    padding: 5,
+  },
+
+  itemTextContainer: {
+    alignItems: "center",
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    paddingLeft: 16,
+  },
+
+  plainTextStyle: {
+    color: "rgb(129,129,129)",
+    marginRight: 2,
+  },
+
+  incompleteIconStyle: { color: "rgba(239,85,84,0.4)" },
+  completeIconStyle: { color: "rgba(0,204,123,0.6)" },
+};
