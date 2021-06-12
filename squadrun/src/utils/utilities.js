@@ -194,18 +194,27 @@ export const planDetails = [
   },
 ];
 
+const BUTTON_TYPE_ONE = "Start Your Trial";
+const BUTTON_TYPE_TWO = "Get In Touch";
+
 export const buttonTitles = [
-  { name: "Start Your Trial" },
-  { name: "Start Your Trial" },
-  { name: "Start Your Trial" },
-  { name: "Start Your Trial" },
-  { name: "Get In Touch" },
+  { name: BUTTON_TYPE_ONE },
+  { name: BUTTON_TYPE_ONE },
+  { name: BUTTON_TYPE_ONE },
+  { name: BUTTON_TYPE_ONE },
+  { name: BUTTON_TYPE_TWO },
 ];
 
-export const getPlanDetails = (selectedIndex) => {
+export const getPlanDetails = (selectedIndex = 2) => {
+  console.log(selectedIndex);
   return typeof selectedIndex == "number"
     ? Object.values(planDetails[selectedIndex])
-    : [];
+    : Object.values(planDetails[2]);
 };
 
+export const MOST_POPULAR_PLAN = 40;
+
 export const SESSION_KEY = "PRICE_RANGE_INDEX";
+
+export const EMPTY_CONTAINER = "Empty Container";
+export const MOST_POPULAR_TEXT = "Most Popular!";

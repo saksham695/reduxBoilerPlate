@@ -1,6 +1,11 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import { color } from "../../utils/theme/color";
 import Text from "../SharedText/Text";
+
+import "./Card.css";
+
 export default function Card({
   platformFee,
   leadsPerMonth,
@@ -28,15 +33,12 @@ export default function Card({
     },
   ];
 
-  const BACKGROUND_COLOR = cardItemIndex % 2 === 0 ? color.grey1 : "white";
+  const BACKGROUND_COLOR = cardItemIndex % 2 === 0 ? color.grey1 : color.white; // even container background color will be grey and odd will be white
+
   return (
     <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        flex: 1,
-        backgroundColor: BACKGROUND_COLOR,
-      }}
+      style={{ backgroundColor: BACKGROUND_COLOR }}
+      className="card-details-container"
     >
       {details.map(
         (
@@ -49,23 +51,15 @@ export default function Card({
           index
         ) => {
           const BORDER_BOTTOM = details.length - 1 === index ? 0 : "1px dashed";
-
           const bottomTextStyle = {
             ...customDescriptionStyle,
             ...styles.descriptionTextStyle,
           };
           return (
-            <div
-              style={{ paddingLeft: "10%", paddingRight: "10%" }}
-              key={`${index}`}
-            >
+            <div className="plan-description-container" key={`${index}`}>
               <div
-                style={{
-                  borderBottom: BORDER_BOTTOM,
-                  borderColor: color.grey2,
-                  paddingTop: "10%",
-                  paddingBottom: "10%",
-                }}
+                className="plan-description-style"
+                style={{ borderBottom: BORDER_BOTTOM }}
               >
                 <Text text={text} customStyle={customTextStyle} />
                 <Text text={description} customStyle={bottomTextStyle} />
@@ -77,6 +71,13 @@ export default function Card({
     </div>
   );
 }
+
+Card.propTypes = {
+  platformFee: PropTypes.number.isRequired,
+  leadsPerMonth: PropTypes.number.isRequired,
+  pricePerLead: PropTypes.number.isRequired,
+  cardItemIndex: PropTypes.number.isRequired,
+};
 
 const styles = {
   smallTextStyle: {

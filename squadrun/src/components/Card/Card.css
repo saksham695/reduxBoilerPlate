@@ -1,0 +1,15 @@
+.card-details-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.plan-description-container {
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.plan-description-style {
+  border-color: rgb(209, 209, 209);
+  padding-top: 10%;
+  padding-bottom: 10%;
+}

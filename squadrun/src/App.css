@@ -13,43 +13,27 @@
   justify-content: space-evenly;
 }
 
-.price-card-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  cursor: pointer;
-  margin-top: 50;
-}
-
-.empty-card-style {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  background-color: rgb(247, 247, 247);
-}
-
-.details-card-container {
-  display: flex;
-  flex-direction: column;
-  height: fit-content;
-  background-color: white;
-  flex: 1;
-}
-
 .details-style {
   min-height: 220;
   display: flex;
+}
+
+.button-container-style {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 20;
 }
 
 .plan-select-btn {
   flex: 1;
   padding-top: 1%;
   padding-bottom: 1%;
-  margin-left: 5px;
+  /* margin-left: 5px; */
   background-color: white;
   color: rgb(243, 88, 62);
   border: 2px solid rgb(243, 88, 62);
+  font-weight: 600;
 }
 
 button:hover {

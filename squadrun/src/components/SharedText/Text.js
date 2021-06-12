@@ -1,6 +1,7 @@
 import React from "react";
 
-export default function Text({ text, customStyle = {} }) {
+function Text({ text, customStyle = {} }) {
   const overrideStyle = customStyle ? customStyle : { color: "black" };
   return <div style={overrideStyle}>{text}</div>;
 }
+export default React.memo(Text);

@@ -1,24 +1,18 @@
 import React from "react";
-import { color } from "../../utils/theme/color";
+import PropTypes from "prop-types";
 
 import Text from "../SharedText/Text";
+import { color } from "../../utils/theme/color";
 
-export default function TileComponent({
+import "./TileStyle.css";
+
+function TileComponent({
   text = "",
   textColor = "white",
   backgroundColor = color.blue1,
 }) {
   return (
-    <div
-      style={{
-        flex: 1,
-        marginLeft: "1%",
-        marginRight: "1%",
-        backgroundColor: backgroundColor,
-        paddingTop: "2%",
-        paddingBottom: "2%",
-      }}
-    >
+    <div style={{ backgroundColor }} className="tile-container">
       <Text
         text={text}
         customStyle={{
@@ -30,3 +24,11 @@ export default function TileComponent({
     </div>
   );
 }
+
+PropTypes.TileComponent = {
+  text: PropTypes.string,
+  textColor: PropTypes.string,
+  backgroundColor: PropTypes.string,
+};
+
+export default React.memo(TileComponent);

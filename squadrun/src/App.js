@@ -1,60 +1,47 @@
 import React, { useState, useCallback } from "react";
 
-import PriceLabels from "./containers/PriceLabels/PriceLabels";
+import Modal from "./components/Modal/Modal";
 import PackageDetails from "./containers/PackageDetails/PackageDetails";
+import PriceLabels from "./containers/PriceLabels/PriceLabels";
+import SelectOptions from "./containers/ButtonContainer/SelectOptions";
 
-import "./App.css";
-import Button from "./components/Button/Button";
-import { buttonTitles, getPlanDetails, SESSION_KEY } from "./utils/utilities";
+import { getPlanDetails, SESSION_KEY } from "./utils/utilities";
 import { useStateValue } from "./store/StateProvider";
 
+import "./App.css";
+
 export default function App() {
-  const [{ selectedPriceRange }, dispatch] = useStateValue();
+  const [{ selectedPriceRange }] = useStateValue();
   const [openModal, setModalState] = useState(false);
   const [modalDetails, setModalDetails] = useState({});
 
-  const onButtonClicked = useCallback(
-    (selectedPlan) => {
-      const savedPriceRange = sessionStorage.getItem(SESSION_KEY);
-      const selectedPriceRangeDetails = getPlanDetails(
-        selectedPriceRange || parseInt(savedPriceRange)
-      );
-      const selectedPlanDetails = selectedPriceRangeDetails[0][selectedPlan];
-      console.log(selectedPlanDetails);
-      setModalState(!openModal);
-      setModalDetails(modalDetails);
-    },
-    [openModal]
-  );
+  const onButtonClicked = useCallback((selectedPlan) => {
+    const savedPriceRange = sessionStorage.getItem(SESSION_KEY) || 2;
+    const selectedPriceRangeDetails = getPlanDetails(
+      selectedPriceRange || parseInt(savedPriceRange)
+    );
+    const selectedPlanDetails = selectedPriceRangeDetails[0][selectedPlan];
+    console.log(selectedPlanDetails);
+    setModalState(!openModal);
+    setModalDetails(modalDetails);
+  }, []);
 
-  console.log("APP RENDER");
+  const toggleModal = () => {
+    openModal && setModalState(false);
+  };
+
   return (
     <div className="root-container">
       <PriceLabels />
       <div style={{ paddingTop: 50 }}>
         <PackageDetails />
       </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-evenly",
-          marginTop: 20,
-        }}
-      >
-        <PlanButtons onButtonClicked={onButtonClicked} />
+      <div className="button-container-style" style={{ marginTop: 20 }}>
+        <SelectOptions onButtonClicked={onButtonClicked} />
       </div>
+      <Modal open={openModal} onClose={toggleModal}>
+        Fancy Modal
+      </Modal>
     </div>
   );
 }
-
-const PlanButtons = React.memo(({ onButtonClicked }) => {
-  return buttonTitles.map(({ name }, index) => (
-    <Button
-      title={name}
-      onButtonClicked={onButtonClicked}
-      index={index}
-      key={`${index}`}
-    />
-  ));
-});

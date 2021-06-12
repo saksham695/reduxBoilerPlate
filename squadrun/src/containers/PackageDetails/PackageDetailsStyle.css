@@ -1,0 +1,27 @@
+.price-card-container {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 50;
+}
+
+.details-card-container {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: fit-content;
+}
+
+.empty-card-style {
+  align-items: center;
+  background-color: rgb(247, 247, 247);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.cards-container {
+  display: flex;
+  min-height: 220;
+}

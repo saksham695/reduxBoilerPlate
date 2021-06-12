@@ -19,7 +19,7 @@ export const color = {
   transparent: "rgba(0, 0, 0, 0)",
   grey1: "rgb(247,247,247)",
   grey2: "rgb(209,209,209)",
-  white: "rgb(255,255,255)",
   red1: "rgb(243,88,62)",
   blue1: "rgb(89,111,144)",
+  white: "	rgb(255,255,255)",
 };

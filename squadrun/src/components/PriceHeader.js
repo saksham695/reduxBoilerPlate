@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import Text from "./SharedText/Text";
 
@@ -53,5 +54,13 @@ function PriceHeader({
     </div>
   );
 }
+
+PriceHeader.propTypes = {
+  priceRange: PropTypes.string.isRequired,
+  planIndex: PropTypes.number.isRequired,
+  totalPlans: PropTypes.number.isRequired,
+  selectedRange: PropTypes.number.isRequired,
+  onPriceRangeSelected: PropTypes.func.isRequired,
+};
 
 export default React.memo(PriceHeader);

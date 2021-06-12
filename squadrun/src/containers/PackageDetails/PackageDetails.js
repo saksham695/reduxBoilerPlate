@@ -5,8 +5,15 @@ import EmptyCard from "../../components/Card/EmptyCard";
 import TileComponent from "../../components/Tiles/TileComponent";
 
 import { color } from "../../utils/theme/color";
-import { getPlanDetails } from "../../utils/utilities";
+import {
+  EMPTY_CONTAINER,
+  getPlanDetails,
+  MOST_POPULAR_PLAN,
+  MOST_POPULAR_TEXT,
+} from "../../utils/utilities";
 import { useStateValue } from "../../store/StateProvider";
+
+import "./PackageDetailsStyle.css";
 
 function PackageDetails() {
   const [{ selectedPriceRange }] = useStateValue();
@@ -15,7 +22,7 @@ function PackageDetails() {
   const getTileComponent = (
     text = "",
     backgroundColor = color.blue1,
-    textColor = "white"
+    textColor = color.white
   ) => {
     return (
       <TileComponent
@@ -26,7 +33,14 @@ function PackageDetails() {
     );
   };
 
-  console.log("PackageDetails RENDER");
+  const renderEmptyContainer = () => {
+    return (
+      <div className="empty-card-style">
+        <EmptyCard />
+      </div>
+    );
+  };
+
   return (
     <div className="price-card-container">
       {(selectedRangePlans[0] || []).map(
@@ -37,11 +51,11 @@ function PackageDetails() {
 
           return (
             <div className="details-card-container" key={`${index}`}>
-              {leadsPerMonth === 40
-                ? getTileComponent("Most Popular!", color.red1)
-                : getTileComponent("Empty Container", "white", "white")}
+              {leadsPerMonth === MOST_POPULAR_PLAN
+                ? getTileComponent(MOST_POPULAR_TEXT, color.red1)
+                : getTileComponent(EMPTY_CONTAINER, color.white, color.white)}
               {getTileComponent(cardHeader)}
-              <div style={styles.detailsStyle}>
+              <div className="cards-container" style={{ minHeight: 220 }}>
                 {!!platformFee ? (
                   <Card
                     platformFee={platformFee}
@@ -51,14 +65,12 @@ function PackageDetails() {
                     key={`${index}`}
                   />
                 ) : (
-                  <div className="empty-card-style">
-                    <EmptyCard />
-                  </div>
+                  renderEmptyContainer()
                 )}
               </div>
               {finalPrice
                 ? getTileComponent(`$${finalPrice}/mo`)
-                : getTileComponent("Empty Container", color.grey1, color.grey1)}
+                : getTileComponent(EMPTY_CONTAINER, color.grey1, color.grey1)}
             </div>
           );
         }
@@ -66,12 +78,5 @@ function PackageDetails() {
     </div>
   );
 }
-
-const styles = {
-  detailsStyle: {
-    minHeight: 220,
-    display: "flex",
-  },
-};
 
 export default React.memo(PackageDetails);
