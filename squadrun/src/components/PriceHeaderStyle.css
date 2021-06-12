@@ -1,0 +1,12 @@
+.individual-price-range {
+  flex: 1;
+  height: fit-content;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  cursor: "pointer";
+}
+
+.price-range-text-style {
+  text-align: center;
+  font-weight: bold;
+}

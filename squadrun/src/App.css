@@ -1,0 +1,12 @@
+.root-container {
+  height: 100vw;
+  width: "100%";
+  padding-left: 15%;
+  padding-right: 15%;
+}
+
+.price-range-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
