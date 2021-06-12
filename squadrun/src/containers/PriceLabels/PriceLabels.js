@@ -19,6 +19,8 @@ function PriceLabels() {
     });
   }, []);
 
+  console.log("PRICE LABEL RENDER");
+
   const onPriceRangeChanged = useCallback(
     (priceRangeIndex) => {
       dispatch({

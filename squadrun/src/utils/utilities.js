@@ -48,6 +48,12 @@ export const planDetails = [
         platformFee: 699,
         finalPrice: 5839,
       },
+      {
+        leadsPerMonth: "",
+        pricePerLead: "",
+        platformFee: "",
+        finalPrice: "",
+      },
     ],
   },
   {
@@ -75,6 +81,12 @@ export const planDetails = [
         pricePerLead: 72,
         platformFee: 699,
         finalPrice: 6559,
+      },
+      {
+        leadsPerMonth: "",
+        pricePerLead: "",
+        platformFee: "",
+        finalPrice: "",
       },
     ],
   },
@@ -104,6 +116,12 @@ export const planDetails = [
         platformFee: 699,
         finalPrice: 7999,
       },
+      {
+        leadsPerMonth: "",
+        pricePerLead: "",
+        platformFee: "",
+        finalPrice: "",
+      },
     ],
   },
   {
@@ -131,6 +149,12 @@ export const planDetails = [
         pricePerLead: 99,
         platformFee: 799,
         finalPrice: 8719,
+      },
+      {
+        leadsPerMonth: "",
+        pricePerLead: "",
+        platformFee: "",
+        finalPrice: "",
       },
     ],
   },
@@ -160,8 +184,28 @@ export const planDetails = [
         platformFee: 799,
         finalPrice: 10159,
       },
+      {
+        leadsPerMonth: "",
+        pricePerLead: "",
+        platformFee: "",
+        finalPrice: "",
+      },
     ],
   },
 ];
+
+export const buttonTitles = [
+  { name: "Start Your Trial" },
+  { name: "Start Your Trial" },
+  { name: "Start Your Trial" },
+  { name: "Start Your Trial" },
+  { name: "Get In Touch" },
+];
+
+export const getPlanDetails = (selectedIndex) => {
+  return typeof selectedIndex == "number"
+    ? Object.values(planDetails[selectedIndex])
+    : [];
+};
 
 export const SESSION_KEY = "PRICE_RANGE_INDEX";
